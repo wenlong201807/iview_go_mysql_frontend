@@ -1,0 +1,6 @@
+/build/
+/config/
+/dist/
+/*.js
+/libs/
+/src/components/editor/tinymce.vue
