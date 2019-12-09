@@ -14,6 +14,7 @@
         </FormItem>
         <FormItem>
           <Button type="primary" @click="login('formInline')">登录</Button>
+
         </FormItem>
       </Form>
     </div>
