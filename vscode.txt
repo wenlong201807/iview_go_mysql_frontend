@@ -1,0 +1,88 @@
+{
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.detectIndentation": false, // vscode默认启用了根据文件类型自动设置tabsize的选项
+  "editor.tabSize": 2, // 重新设定tabsize
+  "editor.fontSize": 18,
+  "editor.formatOnSave": true, // #每次保存的时候自动格式化
+  "eslint.autoFixOnSave": true, // #每次保存的时候将代码按eslint格式进行修复
+  "editor.formatOnType": true,
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "files.autoSaveDelay": 10,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascript",
+  },
+  // #让prettier使用eslint的代码格式进行校验
+  "prettier-eslint.eslintIntegration": true,
+  // #去掉代码结尾的分号
+  "prettier.semi": false,
+  // #使用带引号替代双引号
+  "prettier.singleQuote": true,
+  // "vetur.format.defaultFormatter.js": "vscode-typescript", // 解决函数名前面没有空格
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true, // #让函数(名)和后面的括号之间加个空格
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_line_length": 160,
+      "wrap_attributes": "auto",
+      // #vue组件中html代码格式化样式
+      "end_with_newline": false
+    },
+    "prettier": {
+      "semi": false, // 格式化不加分号
+      "singleQuote": true, // 格式化为单引号
+      "arrowParens": "avoid", // (x) => {} 是否要有小括号
+    }
+  },
+  "vetur.format.defaultFormatter.js": "prettier",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "go",
+    // "vue",
+    "react",
+    "html",
+    "css",
+    "less",
+    "scss",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "go",
+      "autoFix": true
+    },
+    {
+      "language": "react",
+      "autoFix": true
+    },
+    {
+      "language": "css",
+      "autoFix": true
+    },
+    {
+      "language": "less",
+      "autoFix": true
+    },
+    {
+      "language": "scss",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "code-runner.runInTerminal": true,
+  "go.goroot": "",
+  "go.gopath": "",
+  "go.inferGopath": true,
+  "go.autocompleteUnimportedPackages": true,
+  "go.gocodePackageLookupMode": "go",
+  "go.gotoSymbol.includeImports": true,
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+  "go.docsTool": "gogetdoc",
+}
