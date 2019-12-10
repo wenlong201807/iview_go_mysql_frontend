@@ -13,6 +13,12 @@
     <p>
       <Button class="mg" type="primary" @click="updateBook">更新一本图书</Button>
     </p>
+    <p>
+      <Button class="mg" type="primary" @click="pricerangeBook">带分页的价格范围内查询图书</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="rangeBook">带分页图书信息</Button>
+    </p>
 
   </div>
 </template>
@@ -96,7 +102,7 @@ export default {
     updateBook () {
       let postData = {
         bookId: 37,
-        title: '阿斯顿发放666',
+        title: '阿斯顿发放6667777',
         author: '阿斯顿666',
         price: 33,
         sales: 2,
@@ -127,6 +133,51 @@ export default {
           //   this.$router.push({ path: '/home/item' })
           // }
         })
+    },
+    pricerangeBook () {
+      let postData = {
+        pageNo: '2', // 第几页
+        minPrice: '10', // 低价
+        maxPrice: '30' // 高价
+      }
+      this.$axios
+        .get(
+          '/home/getPageBooksByPrice',
+          { params: postData },
+          {
+            // headers: {
+            //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            // },
+            // transformRequest: [
+            //   data => {
+            //     const pairs = []
+            //     Object.keys(data).forEach(key => {
+            //       pairs.push(`${key}=${data[key]}`)
+            //     })
+            //     return pairs.join('&')
+            //   }
+            // ]
+          }
+        )
+        .then(res => {
+          console.log('getPageBooksByPrice', res)
+          // if (res.data.Msg === '登录成功') {
+          //   this.$Message.success('success!')
+          //   this.$router.push({ path: '/home/item' })
+          // }
+        })
+    },
+    rangeBook () {
+      let postData = {
+        pageNo: '2' // 第几页
+      }
+      this.$axios.get('/home/getPageBooks', { params: postData }).then(res => {
+        console.log('getPageBooksByPrice', res)
+        // if (res.data.Msg === '登录成功') {
+        //   this.$Message.success('success!')
+        //   this.$router.push({ path: '/home/item' })
+        // }
+      })
     },
     deleteBook () {
       this.$axios.delete('/home/deleteBook?bookId=' + 38).then(res => {
