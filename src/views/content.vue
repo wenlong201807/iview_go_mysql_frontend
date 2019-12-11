@@ -2,7 +2,13 @@
   <div>
     <h3>content</h3>
     <p class="mg">
+      <Button class="mg" type="primary" @click="testUserName">校验用户名是否存在</Button>
+    </p>
+    <p class="mg">
       <Button class="mg" type="primary" @click="bookstroeLogin">登录书城</Button>
+    </p>
+    <p class="mg">
+      <Button class="mg" type="primary" @click="bookstroeLogout">退出书城</Button>
     </p>
     <p>
       <Button class="mg" type="primary" @click="addBook">添加一本图书</Button>
@@ -17,7 +23,7 @@
       <Button class="mg" type="primary" @click="pricerangeBook">带分页的价格范围内查询图书</Button>
     </p>
     <p>
-      <Button class="mg" type="primary" @click="rangeBook">带分页图书信息</Button>
+      <Button class="mg" type="primary" @click="rangeBook">带分页图书信息**首页展示**看是否有cookie</Button>
     </p>
 
   </div>
@@ -34,14 +40,47 @@ export default {
     console.log('content')
   },
   methods: {
-    bookstroeLogin () {
+    testUserName () {
       let postData = {
         username: 'admin'
-        // password: '123456'
       }
       this.$axios
         .post('/home/checkUserName', postData, {
-          // .post('/home/login', postData, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          },
+          transformRequest: [
+            data => {
+              const pairs = []
+
+              Object.keys(data).forEach(key => {
+                pairs.push(`${key}=${data[key]}`)
+              })
+
+              return pairs.join('&')
+            }
+          ]
+        })
+        .then(res => {
+          console.log('login', res)
+          // if (res.data.Msg === '登录成功') {
+          //   this.$Message.success('success!')
+          //   this.$router.push({ path: '/home/item' })
+          // }
+        })
+    },
+    bookstroeLogout () {
+      this.$axios.post('/home/logout').then(res => {
+        console.log('退出登录', res)
+      })
+    },
+    bookstroeLogin () {
+      let postData = {
+        username: 'admin',
+        password: '123456'
+      }
+      this.$axios
+        .post('/home/login', postData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
