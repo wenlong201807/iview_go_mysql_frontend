@@ -25,6 +25,9 @@
     <p>
       <Button class="mg" type="primary" @click="rangeBook">带分页图书信息**首页展示**看是否有cookie</Button>
     </p>
+    <p>
+      <Button class="mg" type="primary" @click="addBook2Cart">添加到购物车中**登录状态下</Button>
+    </p>
 
   </div>
 </template>
@@ -40,6 +43,17 @@ export default {
     console.log('content')
   },
   methods: {
+    addBook2Cart () {
+      // console.log(this.postHeaderCom())
+      let postData = {
+        bookId: 7
+      }
+      this.$axios
+        .post('/home/addBook2Cart', postData, this.postHeaderCom())
+        .then(res => {
+          console.log('addBook2Cart', res)
+        })
+    },
     testUserName () {
       let postData = {
         username: 'admin'
@@ -222,6 +236,24 @@ export default {
       this.$axios.delete('/home/deleteBook?bookId=' + 38).then(res => {
         console.log(res)
       })
+    },
+    postHeaderCom () {
+      return {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        transformRequest: [
+          data => {
+            const pairs = []
+
+            Object.keys(data).forEach(key => {
+              pairs.push(`${key}=${data[key]}`)
+            })
+
+            return pairs.join('&')
+          }
+        ]
+      }
     }
   }
 }
