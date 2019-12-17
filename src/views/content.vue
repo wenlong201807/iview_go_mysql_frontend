@@ -34,38 +34,68 @@
     <p>
       <Button class="mg" type="primary" @click="deleteCartItem">删除购物项（购物车里面的一种商品）**登录状态下</Button>
     </p>
+    <p>
+      <Button class="mg" type="primary" @click="updateCartItem">更新购物项（购物车里面的一种商品）**登录状态下</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="checkout">去结账**登录状态下</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="getOrders">获取所有的订单**登录状态下</Button>
+    </p>
 
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       content: 666
     }
   },
-  created () {
+  created() {
     console.log('content')
   },
   methods: {
-    deleteCart () {
+    getOrders() {
+      this.$axios.get('/home/getorders').then(res => {
+        console.log('getorders', res)
+      })
+    },
+    checkout() {
+      this.$axios.post('/home/checkout', this.postHeaderCom()).then(res => {
+        console.log('checkout', res)
+      })
+    },
+    updateCartItem() {
+      let postData = {
+        cartItemId: 25,
+        bookCount: 10
+      }
+      this.$axios
+        .put('/home/updateCartItem', postData, this.postHeaderCom())
+        .then(res => {
+          console.log('updateCartItem', res)
+        })
+    },
+    deleteCart() {
       let cartId = '60b2e752-7740-46f6-4d80-1e02ee89080e'
       this.$axios.delete('/home/deleteCart?cartId=' + cartId).then(res => {
         console.log('deleteCart', res)
       })
     },
-    deleteCartItem () {
-      let cartItemId = '20'
+    deleteCartItem() {
+      let cartItemId = '23'
       this.$axios
         .delete('/home/deleteCartItem?cartItemId=' + cartItemId)
         .then(res => {
           console.log('deleteCartItem', res)
         })
     },
-    addBook2Cart () {
+    addBook2Cart() {
       let postData = {
-        bookId: 8
+        bookId: 10
       }
       this.$axios
         .post('/home/addBook2Cart', postData, this.postHeaderCom())
@@ -73,7 +103,7 @@ export default {
           console.log('addBook2Cart', res)
         })
     },
-    testUserName () {
+    testUserName() {
       let postData = {
         username: 'admin'
       }
@@ -87,12 +117,12 @@ export default {
           // }
         })
     },
-    bookstroeLogout () {
+    bookstroeLogout() {
       this.$axios.post('/home/logout').then(res => {
         console.log('退出登录', res)
       })
     },
-    bookstroeLogin () {
+    bookstroeLogin() {
       let postData = {
         username: 'admin2',
         password: '123456'
@@ -107,7 +137,7 @@ export default {
           // }
         })
     },
-    addBook () {
+    addBook() {
       let postData = {
         title: '666顿发放',
         author: '666斯顿',
@@ -125,7 +155,7 @@ export default {
           // }
         })
     },
-    updateBook () {
+    updateBook() {
       let postData = {
         bookId: 39,
         title: '阿2222斯顿发放6667777',
@@ -144,7 +174,7 @@ export default {
           // }
         })
     },
-    pricerangeBook () {
+    pricerangeBook() {
       let postData = {
         pageNo: '2', // 第几页
         minPrice: '10', // 低价
@@ -160,7 +190,7 @@ export default {
           // }
         })
     },
-    rangeBook () {
+    rangeBook() {
       let postData = {
         pageNo: '2' // 第几页
       }
@@ -172,12 +202,12 @@ export default {
         // }
       })
     },
-    deleteBook () {
+    deleteBook() {
       this.$axios.delete('/home/deleteBook?bookId=' + 39).then(res => {
         console.log(res)
       })
     },
-    postHeaderCom () {
+    postHeaderCom() {
       return {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
