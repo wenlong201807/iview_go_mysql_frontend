@@ -26,6 +26,9 @@
       <Button class="mg" type="primary" @click="rangeBook">带分页图书信息**首页展示**看是否有cookie</Button>
     </p>
     <p>
+      <Button class="mg" type="primary" @click="getCartInfo">查看购物车中**登录状态下</Button>
+    </p>
+    <p>
       <Button class="mg" type="primary" @click="addBook2Cart">添加到购物车中**登录状态下</Button>
     </p>
     <p>
@@ -43,6 +46,18 @@
     <p>
       <Button class="mg" type="primary" @click="getOrders">获取所有的订单**登录状态下</Button>
     </p>
+    <p>
+      <Button class="mg" type="primary" @click="getOrderItemsInfo">获取订单详情**登录状态下</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="getMyOrders">获取我的所有的订单**登录状态下</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="sendOrder">发货**登录状态下</Button>
+    </p>
+    <p>
+      <Button class="mg" type="primary" @click="receiveOrder">收货**登录状态下</Button>
+    </p>
 
   </div>
 </template>
@@ -58,6 +73,44 @@ export default {
     console.log('content')
   },
   methods: {
+    receiveOrder() {
+      let postData = {
+        orderId: 'e6476fae-b361-4043-497a-35e0bb6ddd12'
+      }
+      this.$axios
+        .put('/home/receiveOrder', postData, this.postHeaderCom())
+        .then(res => {
+          console.log('receiveOrder', res)
+        })
+    },
+    sendOrder() {
+      let postData = {
+        orderId: 'e6476fae-b361-4043-497a-35e0bb6ddd12'
+      }
+      this.$axios
+        .put('/home/sendOrder', postData, this.postHeaderCom())
+        .then(res => {
+          console.log('sendOrder', res)
+        })
+    },
+    getMyOrders() {
+      this.$axios.get('/home/getMyOrders').then(res => {
+        console.log('getMyOrders', res)
+      })
+    },
+    getOrderItemsInfo() {
+      let orderId = 'f8dd1418-fcf5-41d1-7d7c-5f759a7d6ee9'
+      this.$axios
+        .get('/home/getOrderItemsInfo?orderId=' + orderId)
+        .then(res => {
+          console.log('getOrderItemsInfo', res)
+        })
+    },
+    getCartInfo() {
+      this.$axios.get('/home/getCartInfo').then(res => {
+        console.log('getCartInfo', res)
+      })
+    },
     getOrders() {
       this.$axios.get('/home/getorders').then(res => {
         console.log('getorders', res)
@@ -70,8 +123,8 @@ export default {
     },
     updateCartItem() {
       let postData = {
-        cartItemId: 25,
-        bookCount: 10
+        cartItemId: 33,
+        bookCount: 66
       }
       this.$axios
         .put('/home/updateCartItem', postData, this.postHeaderCom())
@@ -95,7 +148,7 @@ export default {
     },
     addBook2Cart() {
       let postData = {
-        bookId: 10
+        bookId: 7
       }
       this.$axios
         .post('/home/addBook2Cart', postData, this.postHeaderCom())
